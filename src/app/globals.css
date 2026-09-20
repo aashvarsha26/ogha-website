@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-nunito), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --color-[#1B365D]: #1B365D;
+  --color-[#152B4D]: #152B4D;
+  --color-[#0D1D35]: #0D1D35;
+  --color-[#FFB200]: #FFB200;
+  --color-[#E09D00]: #E09D00;
+}
+
+:root {
+  --background: #1B365D;
+  --foreground: #FFFFFF;
+}
+
+body {
+  background-color: #1B365D;
+  color: #FFFFFF;
+  font-family: var(--font-nunito), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbars and Theme Classes */
+::selection {
+  background-color: #FFB200;
+  color: #1B365D;
+}
+
+/* Page shell: cool steel-blue ambient gradient replaces flat gray/white */
+.page-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 70% 40% at 85% 0%, rgba(255, 178, 0, 0.07), transparent 60%),
+    radial-gradient(ellipse 60% 45% at 0% 100%, rgba(30, 62, 98, 0.16), transparent 60%),
+    linear-gradient(180deg, #EEF2F8 0%, #E4EAF3 40%, #DCE4F0 100%);
+  background-attachment: fixed;
+}
+
+/* Cool gradient card for content blocks that sat on plain white */
+.panel-card {
+  background: linear-gradient(150deg, #FFFFFF 0%, #F4F7FC 55%, #E9EEF7 100%);
+  border: 1px solid rgba(27, 54, 93, 0.1);
+  box-shadow: 0 10px 30px -12px rgba(13, 29, 53, 0.18);
+}
+
+/* ═══ Hero wave background ═══ */
+
+/* Soft ambient glows for depth — slowly pulsing */
+.hero-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  animation: hero-glow-pulse 14s ease-in-out infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+@keyframes hero-glow-pulse {
+  0%, 100% { transform: scale(1) translate3d(0, 0, 0); opacity: 0.75; }
+  50% { transform: scale(1.12) translate3d(0, -3%, 0); opacity: 1; }
+}
+
+/* Waves along the bottom edge — three layers drifting at different speeds */
+.hero-wave {
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 200%;
+  animation: hero-wave-slide 16s ease-in-out infinite;
+  will-change: transform;
+  pointer-events: none;
+}
+.hero-wave-back {
+  height: 70px;
+  opacity: 0.9;
+}
+.hero-wave-mid {
+  height: 95px;
+  animation-duration: 19s;
+  animation-delay: -3s;
+}
+.hero-wave-front {
+  height: 110px;
+  animation-duration: 12s;
+  animation-delay: -6s;
+}
+@keyframes hero-wave-slide {
+  0% { transform: translate3d(0, 5px, 0); }
+  50% { transform: translate3d(-50%, -5px, 0); }
+  100% { transform: translate3d(0, 5px, 0); }
+}
+
+/* Crossfade for cycling product images in the stack-spread hero */
+@keyframes hero-img-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.hero-img-fade {
+  animation: hero-img-fade 0.5s ease both;
+}
+
+/* Gentle perpetual float so the hero cards never sit still */
+@keyframes hero-card-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.hero-card-float {
+  animation: hero-card-float 7s ease-in-out infinite;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .hero-wave,
+  .hero-glow,
+  .hero-img-fade,
+  .hero-card-float {
+    animation: none !important;
+  }
+}
